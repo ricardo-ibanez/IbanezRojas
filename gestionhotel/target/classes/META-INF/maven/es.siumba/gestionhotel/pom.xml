@@ -4,9 +4,6 @@
   <artifactId>gestionhotel</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <name>Gestion Hotel</name>
-<<<<<<< HEAD
-  
-=======
 <dependencies>
   
     <dependency>
@@ -18,5 +15,4 @@
     
 </dependencies>
  
->>>>>>> f0abc4316afe465acfb599de7e2950fb05ff4f0a
 </project>
