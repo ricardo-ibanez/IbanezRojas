@@ -2,6 +2,11 @@ package gestionhotel;
 
 public class Clientes {
 	
-	//siumba
+	/*
+	 * nombre
+	 * apellidos
+	 * dni 
+	 * edad
+	 */
 
 }
