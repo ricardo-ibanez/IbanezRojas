@@ -5,13 +5,18 @@ import java.util.ArrayList;
 
 public class BookingService {
 	
+	private Hotel hotel;
+	
+	public BookingService(Hotel hotel) {
+		
+		
+		this.hotel = hotel;
+	}
 	
 	
 	
 	
-	
-	
-	public void consultarDisponibilidad(int numPersona, Hotel hotel) {
+	public void consultarDisponibilidad(int numPersona,LocalDate fechaEntrada, LocalDate fechaSalida) {
 		boolean posReserva = false;
 		ArrayList<Habitacion> habitaciones= hotel.getHabitaciones();
 		
@@ -31,10 +36,21 @@ public class BookingService {
 			}else {
 				posReserva = true;
 			}
+			//Comprobar la fecha de la disponibilidad es valida
+			if(fechaEntrada.isBefore(fechaSalida)) {
+				
+				posReserva= true;
+			}else {
+				
+				posReserva= false;
+				
+			}
 			
 			if(posReserva) {
 				break;
 			}
+			
+			
 		}
 		
 		if(posReserva) {
@@ -48,6 +64,7 @@ public class BookingService {
 	
 	
 	public void reservarHabitacion() {
+		
 		
 		
 		
