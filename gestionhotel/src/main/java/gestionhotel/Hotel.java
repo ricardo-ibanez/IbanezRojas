@@ -8,9 +8,20 @@ public class Hotel {
 	 */
 	
 	private ArrayList <Habitacion> habitaciones;
+	private ArrayList <Clientes> clientes;
 	
-	
-	
+	public Hotel() {
+		
+		
+	}
+
+	public ArrayList<Clientes> getClientes() {
+		return clientes;
+	}
+
+	public void setClientes(ArrayList<Clientes> clientes) {
+		this.clientes = clientes;
+	}
 
 	public Hotel(ArrayList<Habitacion> habitaciones) {
 		super();

@@ -15,6 +15,8 @@ public class Reservas {
 	private LocalDate fechaSalida;
 	private int cReserva;
 	private int numPersonas;
+	private Clientes cliente;
+	private Habitacion habitacion;
 	
 	public Reservas() {
 		super();
@@ -24,12 +26,30 @@ public class Reservas {
 		this.numPersonas = 2;
 	}
 	
-	public Reservas(LocalDate fechaEntrada, LocalDate fechaSalida, int cReserva, int numPersonas) {
+	public Reservas(LocalDate fechaEntrada, LocalDate fechaSalida, int cReserva, int numPersonas, Clientes cliente, Habitacion habitacion) {
 		super();
 		this.fechaEntrada = fechaEntrada;
 		this.fechaSalida = fechaSalida;
 		this.cReserva = cReserva;
 		this.numPersonas = numPersonas;
+		this.cliente= cliente;
+		this.habitacion=habitacion;
+	}
+
+	public Clientes getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Clientes cliente) {
+		this.cliente = cliente;
+	}
+
+	public Habitacion getHabitacion() {
+		return habitacion;
+	}
+
+	public void setHabitacion(Habitacion habitacion) {
+		this.habitacion = habitacion;
 	}
 
 	public LocalDate getFechaEntrada() {

@@ -63,11 +63,43 @@ public class BookingService {
 	}
 	
 	
-	public void reservarHabitacion() {
+	public void reservarHabitacion(Habitacion habitacion,String dniCliente,LocalDate fechaEntrada, LocalDate fechaSalida) {
+		Reservas reserva = new Reservas();
+		boolean existeCliente = false;
 		
 		
+		for(int i=0;i<hotel.getClientes().size();i++) {
+			
+			if(hotel.getClientes().get(i).getDni().equals(dniCliente)) {
+				reserva.setCliente(hotel.getClientes().get(i));
+				existeCliente=true;
+				break;
+				
+			}
+			
+		}
+		if(existeCliente) {
+			reserva.setcReserva(2);
+			reserva.setFechaEntrada(fechaEntrada);
+			reserva.setFechaSalida(fechaSalida);
+			reserva.setHabitacion(habitacion);
+			reserva.setNumPersonas(habitacion.getCapacidad());
+			System.out.println("Reserva"+ reserva.getcReserva()+ "confirmada para las fechas desde"+reserva.getFechaEntrada()+"hasta"+reserva.getFechaSalida()+"con la habitacion"+reserva.getHabitacion()+"para"+reserva.getNumPersonas());
+			
+		}else {
+			
+			System.out.println("Registre los datos del nuevo cliente ");
+			
+		}
 		
 		
 	}
+	
+	/*public Clientes registrarClientes(String dni, String nombre, String apellido, int edad) {
+		
+		Clientes c = new Clientes(nombre,apellido,dni,edad);
+		
+		return c;
+	}*/
 
 }

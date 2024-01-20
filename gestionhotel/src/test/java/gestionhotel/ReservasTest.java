@@ -2,17 +2,14 @@ package gestionhotel;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.jupiter.*;
-
 import org.junit.jupiter.api.Test;
 
-class ClientesTest {
+class ReservasTest {
 
 	@Test
 	void test() {
-		Clientes c = new Clientes();
-		
-		assertEquals(c.getNombre(), "Pepe");
+		Reservas r = new Reservas();
+		assertEquals(r.getcReserva(), 1234);
 	}
 
 }
