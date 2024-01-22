@@ -10,6 +10,10 @@ public class Hotel {
 	private ArrayList <Habitacion> habitaciones;
 	private ArrayList <Clientes> clientes;
 	
+	/*
+	 * arraylist reservas
+	 */
+	
 	public Hotel() {
 		
 		

@@ -59,11 +59,20 @@ public class BookingService {
 			System.out.println("Habitacion no disponible");
 		}
 		
+		/*
+		 * Tener en cuenta las reservas
+		 * 
+		 */
+		
 		
 	}
 	
 	
 	public void reservarHabitacion(Habitacion habitacion,String dniCliente,LocalDate fechaEntrada, LocalDate fechaSalida) {
+		
+		/*
+		 * crear nuevo metodo para comprobar que existe el cliente y sacarlo de este metodo
+		 */
 		Reservas reserva = new Reservas();
 		boolean existeCliente = false;
 		
