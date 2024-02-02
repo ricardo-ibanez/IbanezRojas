@@ -15,10 +15,10 @@ public class Hotel {
 	 */
 	
 	public Hotel() {
-		
-		
+		habitaciones = new ArrayList<Habitacion>();
+		clientes = new ArrayList<Clientes>();
 	}
-
+	
 	public ArrayList<Clientes> getClientes() {
 		return clientes;
 	}

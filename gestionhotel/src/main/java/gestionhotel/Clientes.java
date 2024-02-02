@@ -23,7 +23,6 @@ public class Clientes {
 	}
 	
 	public Clientes(String nombre, String apellidos, String dni, int edad) {
-		super();
 		this.nombre = nombre;
 		this.apellidos = apellidos;
 		this.dni = dni;

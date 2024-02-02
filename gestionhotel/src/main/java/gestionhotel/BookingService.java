@@ -1,23 +1,33 @@
 package gestionhotel;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
+import java.time.*;
+import java.util.*;
 
 public class BookingService {
 	
 	private Hotel hotel;
 	
-	public BookingService(Hotel hotel) {
-		
-		
-		this.hotel = hotel;
+	
+	public BookingService() {
+		hotel = new Hotel();
+		hotel.agregarHabitacion(new Habitacion("libre",2,"normal",75));
+		hotel.agregarHabitacion(new Habitacion("libre",2,"busines",100));
+		hotel.agregarHabitacion(new Habitacion("libre",2,"superior",150));
+		hotel.agregarHabitacion(new Habitacion("libre",2,"busines",100));
+		hotel.agregarHabitacion(new Habitacion("libre",2,"normal",75));
+		hotel.agregarHabitacion(new Habitacion("ocupada",2,"superior",150));
+		hotel.agregarHabitacion(new Habitacion("libre",2,"superior",150));
+		hotel.agregarHabitacion(new Habitacion("libre",2,"busines",100));
+		hotel.agregarHabitacion(new Habitacion("libre",2,"normal",75));
 	}
 	
 	
 	
 	
-	public void consultarDisponibilidad(int numPersona,LocalDate fechaEntrada, LocalDate fechaSalida) {
+
+	public ArrayList<Habitacion> consultarDisponibilidad(int numPersona,LocalDate fechaEntrada, LocalDate fechaSalida) {
 		boolean posReserva = false;
+		ArrayList<Habitacion> posibleReserva = new ArrayList<Habitacion>();
 		ArrayList<Habitacion> habitaciones= hotel.getHabitaciones();
 		
 		//Recorrer habitaciones 1 a 1
@@ -47,7 +57,7 @@ public class BookingService {
 			}
 			
 			if(posReserva) {
-				break;
+				posibleReserva.add(habitaciones.get(i));
 			}
 			
 			
@@ -58,6 +68,8 @@ public class BookingService {
 		}else {
 			System.out.println("Habitacion no disponible");
 		}
+		
+		return posibleReserva;
 		
 		/*
 		 * Tener en cuenta las reservas
