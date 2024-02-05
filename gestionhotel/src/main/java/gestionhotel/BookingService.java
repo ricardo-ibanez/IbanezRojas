@@ -11,13 +11,13 @@ public class BookingService {
 	public BookingService() {
 		hotel = new Hotel();
 		hotel.agregarHabitacion(new Habitacion("libre",2,"normal",75));
-		hotel.agregarHabitacion(new Habitacion("libre",2,"busines",100));
+		hotel.agregarHabitacion(new Habitacion("libre",2,"business",100));
 		hotel.agregarHabitacion(new Habitacion("libre",2,"superior",150));
-		hotel.agregarHabitacion(new Habitacion("libre",2,"busines",100));
+		hotel.agregarHabitacion(new Habitacion("libre",2,"business",100));
 		hotel.agregarHabitacion(new Habitacion("libre",2,"normal",75));
 		hotel.agregarHabitacion(new Habitacion("ocupada",2,"superior",150));
 		hotel.agregarHabitacion(new Habitacion("libre",2,"superior",150));
-		hotel.agregarHabitacion(new Habitacion("libre",2,"busines",100));
+		hotel.agregarHabitacion(new Habitacion("libre",2,"business",100));
 		hotel.agregarHabitacion(new Habitacion("libre",2,"normal",75));
 	}
 	
