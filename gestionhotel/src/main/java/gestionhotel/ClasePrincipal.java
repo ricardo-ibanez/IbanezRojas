@@ -22,6 +22,7 @@ public class ClasePrincipal {
 		ClasePrincipal cp = new ClasePrincipal();
 		cp.metodoGlobal();
 		
+		
 	}
 	
 	public void metodoGlobal() {
