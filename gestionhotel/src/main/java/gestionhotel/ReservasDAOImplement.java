@@ -35,7 +35,7 @@ private Session session;
 	 * @return the array list
 	 */
 	public ArrayList<Reservas> obtenerTodo() {
-		return (ArrayList<Reservas>) session.createQuery("SELECT r FROM Reservas r").getResultList(
+		return (ArrayList<Reservas>) session.createQuery("SELECT r FROM Reservas r").getResultList();
 	}
 
 	public void eliminarReserva(Reservas r) {

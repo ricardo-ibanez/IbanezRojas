@@ -9,7 +9,7 @@ import java.util.*;
  * The Class BookingService.
  */
 public class BookingService {
-	
+	Scanner sc = new Scanner(System.in);
 	/** The hotel. */
 	private Hotel hotel;
 	private final HabitacionDAOImplement hd = new HabitacionDAOImplement();
@@ -21,16 +21,7 @@ public class BookingService {
 	 * Instantiates a new booking service.
 	 */
 	public BookingService() {
-		HabitacionDAOImplement h = new HabitacionDAOImplement();
-		h.guardarHabitacion(new Habitacion("libre",2,"normal",75,null));
-		h.guardarHabitacion(new Habitacion("libre",2,"business",100,null));
-		h.guardarHabitacion(new Habitacion("libre",2,"superior",150,null));
-		h.guardarHabitacion(new Habitacion("libre",2,"business",100,null));
-		h.guardarHabitacion(new Habitacion("libre",2,"normal",75,null));
-		h.guardarHabitacion(new Habitacion("ocupada",2,"superior",150,null));
-		h.guardarHabitacion(new Habitacion("libre",2,"superior",150,null));
-		h.guardarHabitacion(new Habitacion("libre",2,"business",100,null));
-		h.guardarHabitacion(new Habitacion("libre",2,"normal",75,null));
+		
 	}
 	
 	
@@ -107,21 +98,49 @@ public class BookingService {
 	 * @param fechaEntrada the fecha entrada
 	 * @param fechaSalida the fecha salida
 	 */
-	public void reservarHabitacion(Habitacion habitacion,String dniCliente,LocalDate fechaEntrada, LocalDate fechaSalida) {
+	public void reservarHabitacion(Habitacion habitacion,String dniCliente,LocalDate fechaEntrada, LocalDate fechaSalida,int personas) {
 		
 		/*
 		 * crear nuevo metodo para comprobar que existe el cliente y sacarlo de este metodo
 		 */
-		Reservas reserva = new Reservas();
+		Reservas reserva = new Reservas(fechaEntrada,fechaSalida);
 		boolean existeCliente = false;
+		Clientes c = null;
+		
+		if (!existeCliente){
+			//no existe el cliente
+				
+				
+				System.out.println("Introduzca nombre");
+				String nombre = sc.nextLine();
+				
+				System.out.println("Introduzca apellido");
+				String apellido = sc.nextLine();
+				
+				
+				
+				System.out.println("Introduzca edad");
+				int edad = sc.nextInt();
+				sc.nextLine();
+				
+				c = new Clientes(nombre,apellido,dniCliente,edad);
+				
+				existeCliente = true;
+				
+				cd.anadirCliente(c);
+				
+				
+			}
 		
 		
-		for(int i=0;i<hotel.getClientes().size();i++) {
-			
-			if(hotel.getClientes().get(i).getDni().equals(dniCliente)) {
-				reserva.setCliente(hotel.getClientes().get(i));
-				habitacion.setC(hotel.getClientes().get(i));
-				hd.modificarHabitacion(habitacion);
+		
+		
+		for(int i=0;i<cd.obtenerTodo().size();i++) {
+			if(cd.obtenerTodo().get(i).getDni().equals(dniCliente)) {
+				reserva.setCliente(cd.obtenerTodo().get(i));
+				c= cd.obtenerTodo().get(i);
+				
+				
 				existeCliente=true;
 				break;
 				
@@ -133,10 +152,10 @@ public class BookingService {
 			reserva.setFechaEntrada(fechaEntrada);
 			reserva.setFechaSalida(fechaSalida);
 			reserva.setHabitacion(null);
-			
-			reserva.setNumPersonas(habitacion.getCapacidad());
+			reserva.setCliente(c);
+			reserva.setNumPersonas(personas);
 			rd.anadirReserava(reserva);
-			System.out.println("Reserva"+ reserva.getcReserva()+ "confirmada para las fechas desde"+reserva.getFechaEntrada()+"hasta"+reserva.getFechaSalida()+"con la habitacion"+reserva.getHabitacion()+"para"+reserva.getNumPersonas());
+			System.out.println("Reserva "+ reserva.getcReserva()+ " confirmada para las fechas desde "+reserva.getFechaEntrada()+" hasta "+reserva.getFechaSalida()+" para "+reserva.getNumPersonas());
 			
 		}else {
 			

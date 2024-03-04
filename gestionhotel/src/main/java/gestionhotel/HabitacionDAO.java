@@ -36,5 +36,5 @@ public interface HabitacionDAO {
 	 * @param h the h
 	 */
 	public void eliminarHabitacoin(Habitacion h);
-	public void modificarHabitacion(Reservas r);
+	public void modificarHabitacion(Habitacion h );
 }

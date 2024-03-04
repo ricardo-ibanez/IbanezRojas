@@ -3,13 +3,16 @@
 <hibernate-configuration>
     <session-factory>
         <property name="hibernate.hbm2ddl.auto">update</property>
+        <!--<property name="hibernate.hbm2ddl.auto">create</property>-->
         <property name="dialect">org.hibernate.dialect.MySQL5Dialect</property>
         <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-        <property name="hibernate.connection.url">jdbc:mysql://127.0.0.1:3306/hotel</property>
+        <property name="hibernate.connection.url">jdbc:mysql://127.0.0.1:3307/hotel?serverTimezone=UTC</property>
         <property name="hibernate.connection.username">root</property>
-        <property name="hibernate.connection.password">12345</property>
-        <mapping class="gestionhotel.entidades.Habitacion"/>
-        <mapping class="gestionhotel.entidades.Cliente"/>
-        <mapping class="gestionhotel.entidades.Reserva"/>
+        <property name="hibernate.connection.password">123456</property>
+         <mapping class="gestionhotel.Clientes"/>
+        <mapping class="gestionhotel.Habitacion"/>
+        
+        <mapping class="gestionhotel.Reservas"/>
+       
     </session-factory>
 </hibernate-configuration>

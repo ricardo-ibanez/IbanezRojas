@@ -46,8 +46,8 @@ public class Reservas {
 	 */
 	public Reservas() {
 		super();
-		this.fechaEntrada = LocalDate.parse("1950/1/1");
-		this.fechaSalida = LocalDate.parse("2000/1/1");
+		this.fechaEntrada = LocalDate.parse("2024/10/01");
+		this.fechaSalida = LocalDate.parse("2024/10/10");
 		this.cReserva = 1234;
 		this.numPersonas = 2;
 	}
@@ -62,7 +62,7 @@ public class Reservas {
 	 * @param cliente the cliente
 	 * @param habitacion the habitacion
 	 */
-	public Reservas(LocalDate fechaEntrada, LocalDate fechaSalida, int cReserva, int numPersonas, Clientes cliente, Habitacion habitacion) {
+	public Reservas(LocalDate fechaEntrada, LocalDate fechaSalida, int numPersonas, Clientes cliente, Habitacion habitacion) {
 		super();
 		this.fechaEntrada = fechaEntrada;
 		this.fechaSalida = fechaSalida;
@@ -70,6 +70,12 @@ public class Reservas {
 		this.numPersonas = numPersonas;
 		this.cliente= cliente;
 		this.habitacion=habitacion;
+	}
+	
+	public Reservas(LocalDate fechaEntrada, LocalDate fechaSalida) {
+		super();
+		this.fechaEntrada = fechaEntrada;
+		this.fechaSalida = fechaSalida;
 	}
 
 	/**

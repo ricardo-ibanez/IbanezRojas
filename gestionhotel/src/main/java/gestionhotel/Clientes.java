@@ -8,20 +8,21 @@ import javax.persistence.*;
  * La clase Clientes.
  */
 @Entity
-@Table(name = "clientes")
+@Table(name = "Clientes")
 public class Clientes {
 	
 	@Column(length=50)
 	
+	/** dni. */
+	@Id
+	private String dni;
 	/** nombre. */
 	private String nombre;
 	
 	/** apellidos. */
 	private String apellidos;
 	
-	/** dni. */
-	@Id
-	private String dni;
+	
 	
 	/** edad. */
 	private int edad;

@@ -68,10 +68,13 @@ private Session session;
 		tx.commit();
 		
 	}
-	
-	public void modificarHabitacion(Habitacion h) {
+	public void modificarHabitacion(Habitacion h ) {
 		Transaction tx = session.beginTransaction();
 		session.update(h);
 		tx.commit();
 	}
+	
+	
+
+	
 }

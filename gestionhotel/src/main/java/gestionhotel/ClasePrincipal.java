@@ -7,6 +7,7 @@ import java.util.*;
 public class ClasePrincipal {
 	
 	Scanner sc = new Scanner(System.in);
+	BookingService bs = new BookingService();
 	
 	public static void main(String[] args) {
 		ArrayList <Habitacion> habitaciones = new ArrayList <Habitacion>();
@@ -63,14 +64,14 @@ public class ClasePrincipal {
 	}
 	
 	public void pedirDatos() {
-		BookingService bs = new BookingService();
+		
 		
 		DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 		
 		
 		System.out.println("### Consultar disponibilidad y reserva de habitaciones ###");
 		System.out.println("------------------------");
-		System.out.println("Indique fecha de enrada (formato DD/MM/AAAA)");
+		System.out.println("Indique fecha de entrada (formato DD/MM/AAAA)");
 		String fechaEntrada = sc.nextLine();
 		LocalDate dateEntrada = LocalDate.parse(fechaEntrada,formato);
 		
@@ -85,12 +86,13 @@ public class ClasePrincipal {
 		ArrayList <Habitacion> habitaciones;
 		habitaciones = bs.consultarDisponibilidad(personas, dateEntrada, dateSalida);
 		
-		mostrarHabitaciones(habitaciones,dateEntrada,dateSalida);
+		mostrarHabitaciones(habitaciones,dateEntrada,dateSalida,personas);
+		
 		
 		
 	}
 	
-	public void mostrarHabitaciones (ArrayList <Habitacion> habitaciones,LocalDate fechaEntrada,LocalDate fechaSalida) {
+	public void mostrarHabitaciones (ArrayList <Habitacion> habitaciones,LocalDate fechaEntrada,LocalDate fechaSalida,int personas) {
 		int cantidadHabitacionesNormal = 0;
 		int cantidadHabitacionesBusiness = 0;
 		int cantidadHabitacionesSuperior = 0;
@@ -143,28 +145,18 @@ public class ClasePrincipal {
 		
 		System.out.println("Introduzca DNI");
 		String dni = sc.nextLine();
-		
-		System.out.println("Introduzca nombre");
-		String nombre = sc.nextLine();
-		
-		System.out.println("Introduzca apellido");
-		String apellido = sc.nextLine();
-		
-		
-		
-		System.out.println("Introduzca edad");
-		int edad = sc.nextInt();
-		sc.nextLine();
-		
-		Clientes c = new Clientes(nombre,apellido,dni,edad);
+
+		bs.reservarHabitacion(null,dni,fechaEntrada,fechaSalida,personas);
 		
 		int dias = (int) ChronoUnit.DAYS.between(fechaEntrada,fechaSalida);
 		
 		boolean pagar = false;
 		
+		
+		
 		System.out.println("Coste de alojamiento es: " + (dias*precio));
 		
-		System.out.println("¿quiere continuar?(Y/N");
+		System.out.println("¿quiere continuar?(Y/N)");
 		String cont = sc.nextLine();
 		
 		if(cont.equalsIgnoreCase("y")) {

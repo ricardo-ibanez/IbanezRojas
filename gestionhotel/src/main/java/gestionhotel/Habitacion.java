@@ -9,7 +9,7 @@ import javax.persistence.*;
  * The Class Habitacion.
  */
 @Entity
-@Table(name = "habitaciones")
+@Table(name = "Habitaciones")
 public class Habitacion {
 	
 	/** The estado. */
@@ -22,6 +22,10 @@ public class Habitacion {
 	
 	@Column(length=50)
 	
+	/** The id. */
+	@Id
+	private int id;
+	
 	private String estado;
 	
 	/** The capacidad. */
@@ -33,17 +37,15 @@ public class Habitacion {
 	/** The precio. */
 	private double precio;
 	
-	/** The id. */
-	@Id
-	private int id;
 	
+	@OneToOne(fetch = FetchType.LAZY )
 	private Clientes cliente;
 	
 	/**
 	 * Instantiates a new habitacion.
 	 */
 	public Habitacion() {
-		super();
+		
 		this.estado = "libre";
 		this.capacidad = 1;
 		this.tipo = "normal";
@@ -59,8 +61,8 @@ public class Habitacion {
 	 * @param tipo the tipo
 	 * @param precio the precio
 	 */
-	public Habitacion(String estado, int capacidad, String tipo,double precio,Clientes c) {
-		super();
+	public Habitacion(int id, String estado, int capacidad, String tipo,double precio,Clientes c) {
+		this.id=id;
 		this.estado = estado;
 		this.capacidad = capacidad;
 		this.tipo = tipo;
