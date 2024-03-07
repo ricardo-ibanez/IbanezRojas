@@ -15,7 +15,7 @@ public class Habitacion {
 	/** The estado. */
 	/*atributos
 	 * estado habitacion libre/ocupada/rota
-	 * cantidad ocupantes INDIVIDUAL/doble/triple
+	 
 	 * tipo habitacion normal/busines/superior
 	 * precio 
 	 */

@@ -17,6 +17,8 @@ public class BookingService {
 	private final ReservasDAOImplement rd = new ReservasDAOImplement();
 	
 	
+	
+	
 	/**
 	 * Instantiates a new booking service.
 	 */
@@ -36,10 +38,11 @@ public class BookingService {
 	 * @param fechaSalida the fecha salida
 	 * @return the array list
 	 */
-	public ArrayList<Habitacion> consultarDisponibilidad(int numPersona,LocalDate fechaEntrada, LocalDate fechaSalida) {
+	public Habitacion consultarDisponibilidad(int numPersona,LocalDate fechaEntrada, LocalDate fechaSalida) {
 		boolean posReserva = false;
-		ArrayList<Habitacion> posibleReserva = new ArrayList<Habitacion>();
 		ArrayList<Habitacion> habitaciones= hd.obtenerTodo();
+		
+		Habitacion h = new Habitacion();
 		
 		//Recorrer habitaciones 1 a 1
 		for(int i = 0;i<habitaciones.size();i++) {
@@ -67,7 +70,7 @@ public class BookingService {
 			}
 			
 			if(posReserva) {
-				posibleReserva.add(habitaciones.get(i));
+				h = habitaciones.get(i);
 			}
 			
 			
@@ -79,7 +82,7 @@ public class BookingService {
 			System.out.println("Habitacion no disponible");
 		}
 		
-		return posibleReserva;
+		return h;
 		
 		/*
 		 * Tener en cuenta las reservas
@@ -98,7 +101,7 @@ public class BookingService {
 	 * @param fechaEntrada the fecha entrada
 	 * @param fechaSalida the fecha salida
 	 */
-	public void reservarHabitacion(Habitacion habitacion,String dniCliente,LocalDate fechaEntrada, LocalDate fechaSalida,int personas) {
+	public void reservarHabitacion(Habitacion h,String dniCliente,LocalDate fechaEntrada, LocalDate fechaSalida,int personas) {
 		
 		/*
 		 * crear nuevo metodo para comprobar que existe el cliente y sacarlo de este metodo
@@ -107,6 +110,47 @@ public class BookingService {
 		boolean existeCliente = false;
 		Clientes c = null;
 		
+		
+		
+		
+		
+		
+		for(int i=0;i<cd.obtenerTodo().size();i++) {
+			if(cd.obtenerTodo().get(i).getDni().equals(dniCliente)) {
+				reserva.setCliente(cd.obtenerTodo().get(i));
+				c= cd.obtenerTodo().get(i);
+				
+				
+				existeCliente=true;
+				break;
+				
+			}
+			
+		}
+		if(existeCliente) {
+			//reserva.setcReserva(Integer.parseInt(UUID.randomUUID().toString()));
+			reserva.setcReserva((int) (Math.random() * (999999999 - 1)) + 1); //();
+			reserva.setFechaEntrada(fechaEntrada);
+			reserva.setFechaSalida(fechaSalida);
+			reserva.setHabitacion(null);
+			reserva.setCliente(c);
+			reserva.setNumPersonas(personas);
+			if(h.getEstado().equals("normal")) {
+				reserva.setHabitacion(h);
+			}else if(h.getEstado().equals("business")) {
+				reserva.setHabitacion(h);
+			}else if(h.getEstado().equals("superior")) {
+				reserva.setHabitacion(h);
+			}
+			h.setEstado("ocupada");
+			rd.anadirReserava(reserva);
+			System.out.println("Reserva "+ reserva.getcReserva()+ " confirmada para las fechas desde "+reserva.getFechaEntrada()+" hasta "+reserva.getFechaSalida()+" para "+reserva.getNumPersonas());
+			
+		}else {
+			
+			System.out.println("Registre los datos del nuevo cliente ");
+			
+		}
 		if (!existeCliente){
 			//no existe el cliente
 				
@@ -128,42 +172,29 @@ public class BookingService {
 				existeCliente = true;
 				
 				cd.anadirCliente(c);
+				reserva.setcReserva((int) (Math.random() * (999999999 - 1)) + 1); //();
+				reserva.setFechaEntrada(fechaEntrada);
+				reserva.setFechaSalida(fechaSalida);
+				//reserva.setHabitacion(null);
+				reserva.setCliente(c);
+				reserva.setNumPersonas(personas);
+				
+				if(h.getEstado().equals("normal")) {
+					reserva.setHabitacion(h);
+				}else if(h.getEstado().equals("business")) {
+					reserva.setHabitacion(h);
+				}else if(h.getEstado().equals("superior")) {
+					reserva.setHabitacion(h);
+				}
+				h.setEstado("ocupada");
+				rd.anadirReserava(reserva);
+				
+				
 				
 				
 			}
 		
-		
-		
-		
-		for(int i=0;i<cd.obtenerTodo().size();i++) {
-			if(cd.obtenerTodo().get(i).getDni().equals(dniCliente)) {
-				reserva.setCliente(cd.obtenerTodo().get(i));
-				c= cd.obtenerTodo().get(i);
-				
-				
-				existeCliente=true;
-				break;
-				
-			}
-			
-		}
-		if(existeCliente) {
-			reserva.setcReserva(2);
-			reserva.setFechaEntrada(fechaEntrada);
-			reserva.setFechaSalida(fechaSalida);
-			reserva.setHabitacion(null);
-			reserva.setCliente(c);
-			reserva.setNumPersonas(personas);
-			rd.anadirReserava(reserva);
-			System.out.println("Reserva "+ reserva.getcReserva()+ " confirmada para las fechas desde "+reserva.getFechaEntrada()+" hasta "+reserva.getFechaSalida()+" para "+reserva.getNumPersonas());
-			
-		}else {
-			
-			System.out.println("Registre los datos del nuevo cliente ");
-			
-		}
-		
-		
+	
 	}
 	private double realizarCheckOut(String dni) {
         double precioTotal = 0;

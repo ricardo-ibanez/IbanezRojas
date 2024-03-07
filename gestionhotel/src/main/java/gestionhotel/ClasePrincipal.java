@@ -8,6 +8,7 @@ public class ClasePrincipal {
 	
 	Scanner sc = new Scanner(System.in);
 	BookingService bs = new BookingService();
+	private final HabitacionDAOImplement hd = new HabitacionDAOImplement();
 	
 	public static void main(String[] args) {
 		ArrayList <Habitacion> habitaciones = new ArrayList <Habitacion>();
@@ -83,26 +84,26 @@ public class ClasePrincipal {
 		System.out.println("Indique numero de personas (maximo 3)");
 		int personas = sc.nextInt();
 		
-		ArrayList <Habitacion> habitaciones;
-		habitaciones = bs.consultarDisponibilidad(personas, dateEntrada, dateSalida);
+		Habitacion h;
+		h = bs.consultarDisponibilidad(personas, dateEntrada, dateSalida);
 		
-		mostrarHabitaciones(habitaciones,dateEntrada,dateSalida,personas);
+		mostrarHabitaciones(h,dateEntrada,dateSalida,personas);
 		
 		
 		
 	}
 	
-	public void mostrarHabitaciones (ArrayList <Habitacion> habitaciones,LocalDate fechaEntrada,LocalDate fechaSalida,int personas) {
+	public void mostrarHabitaciones (Habitacion habitacion,LocalDate fechaEntrada,LocalDate fechaSalida,int personas) {
 		int cantidadHabitacionesNormal = 0;
 		int cantidadHabitacionesBusiness = 0;
 		int cantidadHabitacionesSuperior = 0;
 		
-		for(int i = 0; i<habitaciones.size();i++) {
-			if(habitaciones.get(i).getTipo().equalsIgnoreCase("normal")) {
+		for(int i = 0; i<hd.obtenerTodo().size();i++) {
+			if(hd.obtenerTodo().get(i).getTipo().equalsIgnoreCase("normal")) {
 				cantidadHabitacionesNormal++;
-			} else if(habitaciones.get(i).getTipo().equalsIgnoreCase("business")) {
+			} else if(hd.obtenerTodo().get(i).getTipo().equalsIgnoreCase("business")) {
 				cantidadHabitacionesBusiness++;
-			}else if(habitaciones.get(i).getTipo().equalsIgnoreCase("superior")) {
+			}else if(hd.obtenerTodo().get(i).getTipo().equalsIgnoreCase("superior")) {
 				cantidadHabitacionesSuperior++;
 			}
 		}
@@ -146,7 +147,7 @@ public class ClasePrincipal {
 		System.out.println("Introduzca DNI");
 		String dni = sc.nextLine();
 
-		bs.reservarHabitacion(null,dni,fechaEntrada,fechaSalida,personas);
+		bs.reservarHabitacion(habitacion,dni,fechaEntrada,fechaSalida,personas);
 		
 		int dias = (int) ChronoUnit.DAYS.between(fechaEntrada,fechaSalida);
 		

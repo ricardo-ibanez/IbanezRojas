@@ -66,7 +66,6 @@ public class Reservas {
 		super();
 		this.fechaEntrada = fechaEntrada;
 		this.fechaSalida = fechaSalida;
-		this.cReserva = cReserva;
 		this.numPersonas = numPersonas;
 		this.cliente= cliente;
 		this.habitacion=habitacion;
