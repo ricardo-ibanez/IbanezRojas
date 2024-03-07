@@ -135,14 +135,6 @@ public class BookingService {
 			reserva.setHabitacion(null);
 			reserva.setCliente(c);
 			reserva.setNumPersonas(personas);
-			if(h.getEstado().equals("normal")) {
-				reserva.setHabitacion(h);
-			}else if(h.getEstado().equals("business")) {
-				reserva.setHabitacion(h);
-			}else if(h.getEstado().equals("superior")) {
-				reserva.setHabitacion(h);
-			}
-			h.setEstado("ocupada");
 			rd.anadirReserava(reserva);
 			System.out.println("Reserva "+ reserva.getcReserva()+ " confirmada para las fechas desde "+reserva.getFechaEntrada()+" hasta "+reserva.getFechaSalida()+" para "+reserva.getNumPersonas());
 			
@@ -178,15 +170,6 @@ public class BookingService {
 				//reserva.setHabitacion(null);
 				reserva.setCliente(c);
 				reserva.setNumPersonas(personas);
-				
-				if(h.getEstado().equals("normal")) {
-					reserva.setHabitacion(h);
-				}else if(h.getEstado().equals("business")) {
-					reserva.setHabitacion(h);
-				}else if(h.getEstado().equals("superior")) {
-					reserva.setHabitacion(h);
-				}
-				h.setEstado("ocupada");
 				rd.anadirReserava(reserva);
 				
 				
@@ -196,32 +179,42 @@ public class BookingService {
 		
 	
 	}
-	private double realizarCheckOut(String dni) {
-        double precioTotal = 0;
-        for (Habitacion hbt : hd.obtenerTodo()) {
-            if (hbt.getC() != null && hbt.getC().getDni().equals(dni)) {
-                for (Reservas reser : rd.obtenerTodo()) {
-                   
-                    if (reser.getHabitacion().equals(hbt)) {
-                        long diasReservados = ChronoUnit.DAYS.between(reser.getFechaEntrada(), reser.getFechaSalida());
-                        precioTotal += diasReservados * reser.getHabitacion().getPrecio();
-                        
-                        rd.modificarReserva(reser);
-                        hbt.setEstado("libre");
-                        hbt.setC(null);
-                        hd.modificarHabitacion(hbt);
-                        return precioTotal;
-                    }else {
-                        System.err.println("No puedes hacer checkout de una reserva que ya se hizo checkout.");
-                    }
-                }
-                
-            }
-        }
-        return precioTotal;
-    }
+	public double realizarCheckOut(String dni) {
+	    double precioTotal = 0;
+	    boolean reservaEncontrada = false;
+	    
+	    for (Habitacion hbt : hd.obtenerTodo()) {
+	        if (hbt != null && hbt.getC() != null && hbt.getC().getDni().equals(dni)) {
+	            for (Reservas reser : rd.obtenerTodo()) {
+	            	String rDNI = reser.getCliente().getDni();
+	            	String hbtDNI = hbt.getC().getDni();
+	                if (rDNI.equals(hbtDNI)) {
+	                    long diasReservados = ChronoUnit.DAYS.between(reser.getFechaEntrada(), reser.getFechaSalida());
+	                    precioTotal += diasReservados * reser.getHabitacion().getPrecio();
+	                    
+	                    rd.modificarReserva(reser);
+	                    hbt.setEstado("libre");
+	                    hbt.setC(null);
+	                    hd.modificarHabitacion(hbt);
+	                    reservaEncontrada = true;
+	                    System.out.println("Check out realizado correctamente");
+	                    rd.eliminarReserva(reser);
+	                    break; // Salir del bucle interno ya que se encontró y procesó una reserva
+	                }
+	            }
+	        }
+	    }
+	    
+	    if (!reservaEncontrada) {
+	        System.err.println("No se encontró ninguna reserva asociada al cliente con DNI: " + dni);
+	    }
+	    
+	    return precioTotal;
+	}
 
-	private boolean realizarCheckIn(int codigo) {
+
+
+	public boolean realizarCheckIn(int codigo) {
         
 
         for (Reservas reservas : rd.obtenerTodo()) {
@@ -233,17 +226,21 @@ public class BookingService {
 
                 for (Reservas res : rd.obtenerTodo()) {
                     if (res.getcReserva() == codigo) {
-                        for (Habitacion habitacion : hd.obtenerTodo()) {
-                            if (habitacion.getC() != null
-                                    && habitacion.getC().getDni().equals(res.getCliente().getDni())) {
-                                habitacion.setEstado("ocupado");
-                                res.setHabitacion(habitacion);
-                                hd.modificarHabitacion(habitacion);
-                                rd.modificarReserva(reservas);
-                                return true; // Termina el método una vez que se ha realizado el check-in.
-                            }
-                        }
+                    	for(Habitacion hbt : hd.obtenerTodo()) {
+                    		if(hbt != null) {
+                    			if(hbt.getCapacidad() == res.getNumPersonas() && hbt.getEstado().equals("libre")) {
+                    				res.setHabitacion(hbt);
+                    				rd.modificarReserva(res);
+                    				hbt.setC(res.getCliente());
+                    				hbt.setEstado("ocupado");
+                    				hd.modificarHabitacion(hbt);
+                    				System.out.println("Check in realizado correctamente");
+                    				return true;
+                    			}
+                    		}
+                    	}
                     }
+                    	
                 }
             }
         }
@@ -251,6 +248,28 @@ public class BookingService {
         System.err.println("No se encontró ninguna reserva asociada a ese código.");
         return false;
     }
+	
+	
+	public void cancelarReserva(int id) {
+		Iterator<Reservas> itr= rd.obtenerTodo().iterator();
+		boolean existe = false;
+		while(itr.hasNext()) {
+			Reservas res = itr.next();
+			if(res.getcReserva() == id ) {
+				rd.eliminarReserva(res);
+				existe = true;
+			}
+		}
+		
+		if(existe) {
+			System.out.println("Reserva borrada");
+		}else {
+			System.out.println("La reserva no existe");
+		}
+		
+		
+		
+	}
 	
 	/*public Clientes registrarClientes(String dni, String nombre, String apellido, int edad) {
 		

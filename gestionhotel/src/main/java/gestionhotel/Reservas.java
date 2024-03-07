@@ -8,7 +8,7 @@ import javax.persistence.*;
  * The Class Reservas.
  */
 @Entity
-@Table(name = "reservas")
+@Table(name = "Reservas")
 public class Reservas {
 	/*
 	 * fecha entrada localdate
@@ -45,11 +45,6 @@ public class Reservas {
 	 * Instantiates a new reservas.
 	 */
 	public Reservas() {
-		super();
-		this.fechaEntrada = LocalDate.parse("2024/10/01");
-		this.fechaSalida = LocalDate.parse("2024/10/10");
-		this.cReserva = 1234;
-		this.numPersonas = 2;
 	}
 	
 	/**

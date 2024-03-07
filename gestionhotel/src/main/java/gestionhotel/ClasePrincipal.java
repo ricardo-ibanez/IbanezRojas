@@ -28,17 +28,14 @@ public class ClasePrincipal {
 	}
 	
 	public void metodoGlobal() {
-		
 		int opcion = 0;
 		boolean seguir = true;
-		
-		
 		
 		do{
 			
 			menuPrimero();
 			opcion = sc.nextInt();
-			sc.nextLine();
+			//sc.nextLine();
 			
 			switch(opcion) {
 				case 1:
@@ -48,6 +45,24 @@ public class ClasePrincipal {
 				case 2:
 					System.out.println("Chaito, vuelva pronto");
 					seguir = false;
+					break;
+				case 3:
+					System.out.println("Introduzca el codigo de la reserva");
+					int idC = sc.nextInt();
+					bs.cancelarReserva(idC);
+					break;
+				case 4:
+					System.out.println("Introduce el id de la reserva");
+					idC = sc.nextInt();
+					bs.realizarCheckIn(idC);
+					break;
+				case 5:
+					sc.nextLine();
+					System.out.println("Introduce el dni del cliente");
+					String dni = sc.nextLine();
+					double precio = bs.realizarCheckOut(dni);
+					System.out.println("Precio total: " + precio + "€");
+					System.out.println("-------------------------------------------");
 					break;
 				default:
 					System.err.println("No es una opcion valida, pruebe de nuevo \n ------------------------------------------- \n");
@@ -60,6 +75,9 @@ public class ClasePrincipal {
 	public void menuPrimero() {
 		System.out.println("1.Consultar disponibilidad.");
 		System.out.println("2. Salir");
+		System.out.println("3. Cancelar reserva");
+		System.out.println("4. Check in");
+		System.out.println("5. Check out");
 		System.out.println("----------------------");
 		System.out.println("Introduzca una opción.");
 	}
@@ -72,12 +90,13 @@ public class ClasePrincipal {
 		
 		System.out.println("### Consultar disponibilidad y reserva de habitaciones ###");
 		System.out.println("------------------------");
-		System.out.println("Indique fecha de entrada (formato DD/MM/AAAA)");
+		sc.nextLine();
+		
+		System.out.println("Indique fecha de entrada (formato dd/MM/yyyy)");
 		String fechaEntrada = sc.nextLine();
 		LocalDate dateEntrada = LocalDate.parse(fechaEntrada,formato);
 		
-		
-		System.out.println("Indique fecha de salida (formato DD/MM/AAAA)");
+		System.out.println("Indique fecha de salida (formato dd/MM/yyyy)");
 		String fechaSalida = sc.nextLine();
 		LocalDate dateSalida= LocalDate.parse(fechaSalida,formato);
 		
@@ -99,11 +118,11 @@ public class ClasePrincipal {
 		int cantidadHabitacionesSuperior = 0;
 		
 		for(int i = 0; i<hd.obtenerTodo().size();i++) {
-			if(hd.obtenerTodo().get(i).getTipo().equalsIgnoreCase("normal")) {
+			if(hd.obtenerTodo().get(i).getTipo().equalsIgnoreCase("normal") && hd.obtenerTodo().get(i).getEstado().equalsIgnoreCase("libre")) {
 				cantidadHabitacionesNormal++;
-			} else if(hd.obtenerTodo().get(i).getTipo().equalsIgnoreCase("business")) {
+			} else if(hd.obtenerTodo().get(i).getTipo().equalsIgnoreCase("business") && hd.obtenerTodo().get(i).getEstado().equalsIgnoreCase("libre")) {
 				cantidadHabitacionesBusiness++;
-			}else if(hd.obtenerTodo().get(i).getTipo().equalsIgnoreCase("superior")) {
+			}else if(hd.obtenerTodo().get(i).getTipo().equalsIgnoreCase("superior") && hd.obtenerTodo().get(i).getEstado().equalsIgnoreCase("libre")) {
 				cantidadHabitacionesSuperior++;
 			}
 		}
@@ -168,6 +187,9 @@ public class ClasePrincipal {
 		
 		
 	}
+	
+	
+	
 	
 	
 }
