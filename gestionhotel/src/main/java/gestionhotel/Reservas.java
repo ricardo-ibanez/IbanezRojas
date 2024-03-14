@@ -18,7 +18,10 @@ public class Reservas {
 	 * 
 	 */
 	
-	@Column(length=50)
+	@Column(length=150)
+	/** The c reserva. */
+	@Id
+	private int cReserva;
 	
 	/** The fecha entrada. */
 	private LocalDate fechaEntrada;
@@ -26,9 +29,6 @@ public class Reservas {
 	/** The fecha salida. */
 	private LocalDate fechaSalida;
 	
-	/** The c reserva. */
-	@Id
-	private int cReserva;
 	
 	/** The num personas. */
 	private int numPersonas;
@@ -40,6 +40,10 @@ public class Reservas {
 	/** The habitacion. */
 	@OneToOne(fetch = FetchType.LAZY )
 	private Habitacion habitacion;
+	
+	private boolean reservado;
+	
+	private String tipoHabitacion;
 	
 	/**
 	 * Instantiates a new reservas.
@@ -57,20 +61,7 @@ public class Reservas {
 	 * @param cliente the cliente
 	 * @param habitacion the habitacion
 	 */
-	public Reservas(LocalDate fechaEntrada, LocalDate fechaSalida, int numPersonas, Clientes cliente, Habitacion habitacion) {
-		super();
-		this.fechaEntrada = fechaEntrada;
-		this.fechaSalida = fechaSalida;
-		this.numPersonas = numPersonas;
-		this.cliente= cliente;
-		this.habitacion=habitacion;
-	}
 	
-	public Reservas(LocalDate fechaEntrada, LocalDate fechaSalida) {
-		super();
-		this.fechaEntrada = fechaEntrada;
-		this.fechaSalida = fechaSalida;
-	}
 
 	/**
 	 * Gets the cliente.
@@ -79,6 +70,20 @@ public class Reservas {
 	 */
 	public Clientes getCliente() {
 		return cliente;
+	}
+
+	
+	public Reservas(int cReserva, LocalDate fechaEntrada, LocalDate fechaSalida, int numPersonas,
+			String tipoHabitacion, Clientes cliente, Habitacion habitacion, boolean reservado) {
+		super();
+		this.cReserva = cReserva;
+		this.fechaEntrada = fechaEntrada;
+		this.fechaSalida = fechaSalida;
+		this.numPersonas = numPersonas;
+		this.tipoHabitacion = tipoHabitacion;
+		this.cliente = cliente;
+		this.habitacion = habitacion;
+		this.reservado = reservado;
 	}
 
 	/**
@@ -179,6 +184,16 @@ public class Reservas {
 	public void setNumPersonas(int numPersonas) {
 		this.numPersonas = numPersonas;
 	}
+	
+	
+
+	public boolean isReservado() {
+		return reservado;
+	}
+
+	public void setReservado(boolean reservado) {
+		this.reservado = reservado;
+	}
 
 	/**
 	 * To string.
@@ -189,6 +204,14 @@ public class Reservas {
 	public String toString() {
 		return "Reservas [fechaEntrada=" + fechaEntrada + ", fechaSalida=" + fechaSalida + ", cReserva=" + cReserva
 				+ ", numPersonas=" + numPersonas + "]";
+	}
+
+	public String getTipoHabitacion() {
+		return tipoHabitacion;
+	}
+
+	public void setTipoHabitacion(String tipoHabitacion) {
+		this.tipoHabitacion = tipoHabitacion;
 	}
 	
 	

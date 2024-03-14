@@ -31,11 +31,6 @@ public class Clientes {
 	 * Instantiates nuevo clientes.
 	 */
 	public Clientes() {
-		super();
-		this.nombre = "Pepe";
-		this.apellidos = "Ramirez";
-		this.dni = "00000000A";
-		this.edad = 20;
 	}
 	
 	/**

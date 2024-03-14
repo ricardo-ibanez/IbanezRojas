@@ -38,19 +38,11 @@ public class Habitacion {
 	private double precio;
 	
 	
-	@OneToOne(fetch = FetchType.LAZY )
-	private Clientes cliente;
-	
 	/**
 	 * Instantiates a new habitacion.
 	 */
 	public Habitacion() {
 		
-		this.estado = "libre";
-		this.capacidad = 1;
-		this.tipo = "normal";
-		this.precio = 20;
-		this.cliente = new Clientes();
 	}
 	
 	/**
@@ -61,23 +53,12 @@ public class Habitacion {
 	 * @param tipo the tipo
 	 * @param precio the precio
 	 */
-	public Habitacion(int id, String estado, int capacidad, String tipo,double precio,Clientes c) {
+	public Habitacion(int id, String estado, int capacidad, String tipo,double precio) {
 		this.id=id;
 		this.estado = estado;
 		this.capacidad = capacidad;
 		this.tipo = tipo;
 		this.precio = precio;
-		this.cliente = c;
-	}
-	
-	
-	
-	public Clientes getC() {
-		return cliente;
-	}
-
-	public void setC(Clientes c) {
-		this.cliente = c;
 	}
 
 	/**
